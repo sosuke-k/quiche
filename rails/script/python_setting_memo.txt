@@ -1,0 +1,6 @@
+mecab
+http://code.google.com/p/mecab/downloads/detail?name=mecab-0.996.tar.gz
+mecab-ipadic
+https://code.google.com/p/mecab/downloads/detail?name=mecab-ipadic-2.7.0-20070801.tar.gz&can=2&q=
+mecab-python
+https://code.google.com/p/mecab/downloads/detail?name=mecab-python-0.996.tar.gz&can=2&q=
