@@ -10,6 +10,10 @@ def write2csv(filename, texts):
     writecsv.writerows(texts) # 複数行(リストのリスト|テーブル)の書き込み
     return True
 
+def append2file(filename, text):
+    with open(filename, "a") as f:
+        f.write(text)
+
 def analyzer(text):
     ret = []
     tagger = MeCab.Tagger('-Ochasen')
