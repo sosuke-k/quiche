@@ -36,13 +36,16 @@ gem 'font-awesome-rails'
 gem 'imgkit'
 gem 'bitly'
 gem 'newrelic_rpm'
-gem 'slack-notify'
+gem 'slack-notifier'
 gem 'grape'
+gem 'resque'
+gem 'zeroclipboard-rails'
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'sqlite3'
+  gem 'bullet'
 end
 
 group :doc do

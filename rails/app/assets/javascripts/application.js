@@ -12,9 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require zeroclipboard
 //= require_tree .
 
 $(window).load(function() {
+  $('.tag_div').fadeIn(1000)
   open_modal('.read_more')
   open_modal('.comment')
   $('.read_button').bind("ajax:success", function(data, response, xhr){
@@ -39,6 +41,24 @@ $(window).load(function() {
     'removeWithBackspace' : false,
   });
   initSuggest();
+  add_link_to_tag();
+  add_copy_url_button();
+})
+
+function add_link_to_tag() {
+  $('.tag').on('click', function(){
+    tag_name = $(this).children('span').text().replace(/\s+/g, '')
+    location.href = location.origin + '/items?query=' + tag_name
+  })
+}
+
+$(function() {
+  $.each(['.main_quiches', '.gouter_quiches'], function(i, val) {
+    $(val+' img.lazy').lazyload({
+      container: $(val),
+      effect: 'fadeIn'
+    })
+  })
 })
 
 function initSuggest() {
@@ -71,5 +91,12 @@ function open_modal(button){
   $(button).click(function() {
     event.preventDefault()
     $(this).parent().parent().children( button + '_modal' ).modal()
+  })
+}
+
+function add_copy_url_button() {
+  var clip = new ZeroClipboard($('.copy_url_button'))
+  clip.on('aftercopy', function( event ) {
+    alert('Copied text to clipboard: ' + event.data['text/plain'] );
   })
 }

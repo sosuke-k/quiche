@@ -15,6 +15,16 @@ module ItemsHelper
     IMGKit.new(url, width: 144).to_img(:jpg)
   end
 
+  def lazy_image_tag source, options = {}
+    options['data-original'] = source
+    if options[:class].blank?
+      options[:class] = 'lazy'
+    else
+      options[:class] = options[:class].to_s + ' lazy'
+    end
+    image_tag 'placeholder.png', options
+  end
+
   def already_read_message(item, user)
     if (item.user == user || item.readers.include?(user))
       'You have already read!'
@@ -53,17 +63,19 @@ module ItemsHelper
         fulltext text
       end
 
-      unless user_id.nil?
-        with(:user_id, user_id)
-      end
-
       unless reader_and_flag.nil?
         if reader_and_flag
+          unless user_id.nil?
+            with(:user_id, user_id)
+          end
           reader_ids.each do |id|
             with(:readers, id)
           end
         else
           any_of do
+            unless user_id.nil?
+              with(:user_id, user_id)
+            end
             with(:readers, reader_ids)
           end
         end
@@ -90,6 +102,6 @@ module ItemsHelper
       end
     end
 
-    result.results
+    [result.total, result.results]
   end
 end

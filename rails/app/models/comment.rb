@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   include Notification
 
   belongs_to :user
-  belongs_to :item
+  belongs_to :item, touch: true
   validates :content, presence: true
   default_scope -> { order('created_at DESC') }
   after_create :notify_new_comment
@@ -11,6 +11,6 @@ class Comment < ActiveRecord::Base
   private
 
   def notify_new_comment
-    tweet "[#{item.title.truncate(50)}]にコメントが付いたよ: 「#{content.truncate(70)}」"
+    slack_notify("[#{item.title}]にコメントが付いたよ: 「#{content}」", '#oven')
   end
 end
